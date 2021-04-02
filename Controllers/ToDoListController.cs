@@ -20,7 +20,7 @@ namespace ToDoList.Controllers
         }
 
         [HttpGet("")]
-        public ActionResult<IEnumerable<MyTask>> GetTasks()
+        public ActionResult<Dictionary<int, MyTask>> GetTasks()
         {
 
             return service.GetAll();
@@ -29,7 +29,7 @@ namespace ToDoList.Controllers
         [HttpGet("{id}")]
         public ActionResult<MyTask> GetTaskById(int id)
         {
-            if (id > 0 && id <= service.lastIndex)
+            if (service.IsContainsId(id))
             {
                 return service.GetMyTask(id);
             }
@@ -43,7 +43,7 @@ namespace ToDoList.Controllers
         public ActionResult<MyTask> PostTask(MyTask model)
         {
             MyTask currentTask = service.AddTask(model);
-            return Created($"api/ToDoList/{currentTask.Id}", currentTask);
+            return Created($"api/ToDoList/{service.lastIndex}", currentTask);
         }
 
         [HttpPut("{id}")]
