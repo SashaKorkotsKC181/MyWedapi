@@ -27,14 +27,14 @@ namespace ToDoLists.Controllers
             return service.GetAllLists();
         }
 
-        [HttpGet("{id}/tasks")]
-        public ActionResult<IEnumerable<MyTask>> GetListById(int id)
+        [HttpGet("/lists/{listId}/tasks")]
+        public ActionResult<IEnumerable<MyTask>> GetListById(int listId)
         {
             // TODO: Your code here            
 
-            if (service.IsContainsId(id))
+            if (service.IsContainsId(listId))
             {
-                return Ok(service.GetAllFromList(id));
+                return Ok(service.GetAllFromList(listId));
             }
             else
             {
