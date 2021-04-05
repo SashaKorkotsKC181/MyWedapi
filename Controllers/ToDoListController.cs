@@ -20,10 +20,9 @@ namespace ToDoList.Controllers
         }
 
         [HttpGet("")]
-        public ActionResult<Dictionary<int, MyTask>> GetTasks()
+        public ActionResult<IEnumerable<MyTask>> GetTasks()
         {
-
-            return service.GetAll();
+            return Ok(service.GetAll());
         }
 
         [HttpGet("{id}")]
@@ -58,21 +57,32 @@ namespace ToDoList.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTask(int id, MyTask model)
+        public IActionResult PutTask(int id, MyTask model)
         {
             // TODO: Your code here
-            await Task.Yield();
-
-            return NoContent();
+            if (service.IsContainsId(id))
+            {
+                service.Ubdate(id,model);
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<MyTask>> DeleteTaskById(int id)
+        public ActionResult<MyTask> DeleteTaskById(int id)
         {
-            // TODO: Your code here
-            await Task.Yield();
-
-            return null;
+            // TODO: Your code here            
+            if (service.IsContainsId(id))
+            {
+                return Ok(service.DeleteById(id));
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }

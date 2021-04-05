@@ -68,7 +68,7 @@ namespace ToDoLists.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMyTask(int id, MyTask model)
+        public async Task<IActionResult> PutMyList(int id, MyTask model)
         {
             // TODO: Your code here
             await Task.Yield();

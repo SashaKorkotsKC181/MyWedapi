@@ -12,9 +12,9 @@ namespace MyWedapi
         };
         
         public int lastIndex = 2;
-        public Dictionary<int, MyTask> GetAll()
+        public IEnumerable<MyTask> GetAll()
         {
-            return tasks;
+            return tasks.Values;
         }
         public MyTask GetMyTask(int id)
         {
@@ -36,6 +36,25 @@ namespace MyWedapi
         public bool IsContainsId(int id)
         {
             return tasks.ContainsKey(id);
+        }
+        public MyTask DeleteById(int id)
+        {
+            MyTask deletedTask = tasks[id];
+            tasks.Remove(id);
+            return deletedTask;
+        }
+        public void Ubdate(int id, MyTask newTask)
+        {
+            MyTask task = new MyTask()
+            {
+                Title = newTask.Title != null ? newTask.Title:null,
+                Description = newTask.Description != null ? newTask.Description:null,
+                DoDate = newTask.DoDate != null ? newTask.DoDate:null,
+                Done = newTask.Done
+            };
+            tasks.Remove(id);
+            tasks.Add(id,task);
+
         }
     }
 
