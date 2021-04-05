@@ -62,8 +62,7 @@ namespace ToDoList.Controllers
             // TODO: Your code here
             if (service.IsContainsId(id))
             {
-                service.Ubdate(id,model);
-                return Ok();
+                return Ok(service.Ubdate(id,model));
             }
             else
             {

@@ -43,18 +43,18 @@ namespace MyWedapi
             tasks.Remove(id);
             return deletedTask;
         }
-        public void Ubdate(int id, MyTask newTask)
+        public MyTask Ubdate(int id, MyTask newTask)
         {
             MyTask task = new MyTask()
             {
-                Title = newTask.Title != null ? newTask.Title:null,
-                Description = newTask.Description != null ? newTask.Description:null,
-                DoDate = newTask.DoDate != null ? newTask.DoDate:null,
+                Title = newTask.Title != null ? newTask.Title:tasks[id].Title,
+                Description = newTask.Description != null ? newTask.Description:tasks[id].Description,
+                DoDate = newTask.DoDate != null ? newTask.DoDate:tasks[id].DoDate,
                 Done = newTask.Done
             };
             tasks.Remove(id);
             tasks.Add(id,task);
-
+            return task;
         }
     }
 
