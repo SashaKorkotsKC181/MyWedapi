@@ -28,13 +28,13 @@ namespace ToDoLists.Controllers
         }
 
         [HttpGet("{id}/tasks")]
-        public ActionResult<Dictionary<int, MyTask>> GetListById(int id)
+        public ActionResult<IEnumerable<MyTask>> GetListById(int id)
         {
             // TODO: Your code here            
 
             if (service.IsContainsId(id))
             {
-                return service.GetAllFromList(id);
+                return Ok(service.GetAllFromList(id));
             }
             else
             {
@@ -43,13 +43,13 @@ namespace ToDoLists.Controllers
         }
 
         [HttpGet("/tasks")]
-        public ActionResult<Dictionary<int, MyTask>> GetFromListMyTaskById()
+        public ActionResult<IEnumerable<MyTask>> GetFromListMyTaskById()
         {
             int id = Convert.ToInt32(this.Request.Query["listId"]);
             // TODO: Your code here            
             if (service.IsContainsId(id))
             {
-                return service.GetAllFromList(id);
+                return Ok(service.GetAllFromList(id));
             }
             else
             {
@@ -77,12 +77,17 @@ namespace ToDoLists.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<MyTask>> DeleteMyTaskById(int id)
+        public ActionResult<MyTask> DeleteMyListById(int id)
         {
-            // TODO: Your code here
-            await Task.Yield();
-
-            return null;
+            // TODO: Your code here            
+            if (service.IsContainsId(id))
+            {
+                return Ok(service.DeleteListById(id));
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }

@@ -22,13 +22,13 @@ namespace MyWedapi
         {
             return listsOfTasks;
         }
-        public Dictionary<int, MyTask> GetAllFromList(int id)
+        public  IEnumerable<MyTask> GetAllFromList(int id)
         {
-            return listsOfTasks[id];
+            return listsOfTasks[id].Values;
         }
         public MyTask GetFromListMyTask(int idl, int idt)
         {
-            return GetAllFromList(idl)[idt];
+            return listsOfTasks[idl][idt];
         }
         
         public MyTask AddTask(int id, MyTask model)
@@ -47,6 +47,12 @@ namespace MyWedapi
         public bool IsContainsId(int id)
         {
             return listsOfTasks.ContainsKey(id);
+        }
+        public Dictionary<int, MyTask> DeleteListById(int id)
+        {
+            Dictionary<int, MyTask> deleteTask = listsOfTasks[id];
+            listsOfTasks.Remove(id);
+            return listsOfTasks[id];
         }
     }
 
