@@ -54,6 +54,7 @@ namespace MyWedapi
             };
             tasks.Remove(id);
             tasks.Add(id,task);
+            lastIndex--;
             return task;
         }
     }
