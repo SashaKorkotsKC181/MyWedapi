@@ -38,7 +38,18 @@ namespace ToDoList.Controllers
                 return NotFound();
             }
         }
-
+        [HttpGet("/tasks")]
+        public ActionResult<MyTask> GetTaskByIdOnParam(int id)
+        {
+            if (service.IsContainsId(id))
+            {
+                return service.GetMyTask(id);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
         [HttpPost("")]
         public ActionResult<MyTask> PostTask(MyTask model)
         {

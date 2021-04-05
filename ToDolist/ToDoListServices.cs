@@ -10,6 +10,7 @@ namespace MyWedapi
             {1 ,new MyTask() {/* Id = 1 ,*/Title ="make class"}},
             {2 ,new MyTask() {/* Id = 2, */Title ="make struct"}}
         };
+        
         public int lastIndex = 2;
         public Dictionary<int, MyTask> GetAll()
         {
@@ -28,14 +29,14 @@ namespace MyWedapi
                 Done = model.Done,
                 Description = model.Description
             };
-            tasks.Add(++lastIndex,todoItem);
+            tasks.Add(++lastIndex, todoItem);
 
             return todoItem;
         }
         public bool IsContainsId(int id)
         {
             return tasks.ContainsKey(id);
-        } 
+        }
     }
 
 }
