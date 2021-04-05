@@ -41,6 +41,7 @@ namespace MyWedapi
         {
             MyTask deletedTask = tasks[id];
             tasks.Remove(id);
+            lastIndex--;
             return deletedTask;
         }
         public MyTask Ubdate(int id, MyTask newTask)
@@ -54,7 +55,6 @@ namespace MyWedapi
             };
             tasks.Remove(id);
             tasks.Add(id,task);
-            lastIndex--;
             return task;
         }
     }
