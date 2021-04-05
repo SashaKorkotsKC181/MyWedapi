@@ -77,17 +77,12 @@ namespace ToDoLists.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<MyTask> DeleteMyListById(int id)
+        public async Task<ActionResult<MyTask>> DeleteMyListById(int id)
         {
             // TODO: Your code here            
-            if (service.IsContainsId(id))
-            {
-                return Ok(service.DeleteListById(id));
-            }
-            else
-            {
-                return NotFound();
-            }
+            await Task.Yield();
+
+            return NoContent();
         }
     }
 }
