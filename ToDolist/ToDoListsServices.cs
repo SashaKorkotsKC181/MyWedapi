@@ -1,4 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ToDoList.Models;
 
 namespace MyWedapi
@@ -6,63 +10,75 @@ namespace MyWedapi
     public class ToDoListsServices
     {
 
-        Dictionary<int, Dictionary<int, MyTask>> listsOfTasks = new Dictionary<int, Dictionary<int, MyTask>>()
+        TodoListsContext db;
+        public ToDoListsServices(TodoListsContext context)
         {
-            {1, new Dictionary<int, MyTask>(){
-            {1 ,new MyTask() {Title ="make class"}},
-            {2 ,new MyTask() {Title ="make struct"}}
-            }},
-            {2, new Dictionary<int, MyTask>(){
-            {1 ,new MyTask() {Title ="make class"}},
-            {2 ,new MyTask() {Title ="make struct"}}
-            }},
-        };
-
-
-
-        public int lastIndex = 2;
-
-
-        TodoListContext context;
-        public ToDoListsServices(TodoListContext context)
-        {
-            this.context = context;
+            this.db = context;
         }
-        public Dictionary<int, Dictionary<int, MyTask>> GetAllLists()
+        public IEnumerable<MyList> GetAllLists()
         {
-            return listsOfTasks;
+            return db.MyLists;
         }
-        public  IEnumerable<MyTask> GetAllFromList(int id)
-        {
-            return listsOfTasks[id].Values;
-        }
-        public MyTask GetFromListMyTask(int idl, int idt)
-        {
-            return listsOfTasks[idl][idt];
-        }
-        
         public MyTask AddTask(int id, MyTask model)
         {
             MyTask todoItem = new MyTask
             {
-                /* Id = ++lastIndex, */
                 Title = model.Title,
                 Done = model.Done,
-                Description = model.Description
+                Description = model.Description,
+                MyListId = id
             };
-            listsOfTasks[id].Add(++lastIndex, todoItem);
-
+            
+            db.MyTasks.Add(todoItem);
+            db.SaveChanges();
             return todoItem;
         }
-        public bool IsContainsId(int id)
+        public MyList AddList(MyList model)
         {
-            return listsOfTasks.ContainsKey(id);
+            MyList todoList = new MyList
+            {
+                Title = model.Title,
+                Tasks = model.Tasks
+            };
+            db.MyLists.Add(todoList);
+            db.SaveChanges();
+            return todoList;
         }
-        public Dictionary<int, MyTask> DeleteListById(int id)
+
+        public IEnumerable<MyTask> GetAllTaskFromList(int id)
         {
-            Dictionary<int, MyTask> deleteTask = listsOfTasks[id];
-            listsOfTasks.Remove(id);
-            return listsOfTasks[id];
+            return db.MyTasks.Where(b => b.MyListId == id);
+        }
+
+        public MyList UpdateList(int id, MyList model)
+        {
+            model.MyListId = id;
+            db.MyLists.Update(model);
+            db.SaveChanges();
+            return model;
+        }
+        public MyTask UpdateTask(int idl, int idt, MyTask model)
+        {
+            model.MyListId = idl;
+            model.MyTaskId = idt;
+            db.MyTasks.Update(model);
+            db.SaveChanges();
+            return model;
+        }
+
+        public MyList DeleteList(int id)
+        {
+            MyList deletedList = db.MyLists.Where(b => b.MyListId == id).Single();
+            db.Remove(deletedList);
+            db.SaveChanges();
+            return deletedList;
+        }
+        public MyTask DeleteTask(int idl, int idt)
+        {
+            MyTask deletedList = db.MyTasks.Where(b => b.MyListId == idl && b.MyTaskId == idt).Single();
+            db.Remove(deletedList);
+            db.SaveChanges();
+            return deletedList;
         }
     }
 

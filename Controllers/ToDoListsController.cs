@@ -19,70 +19,59 @@ namespace ToDoLists.Controllers
             this.service = service;
         }
 
-        /* [HttpGet("")]
-        public ActionResult<IEnumerable<MyTask>> GetMyTasks()
+        [HttpGet("")]
+        public ActionResult<IEnumerable<MyList>> GetMyLists()
         {
             // TODO: Your code here
 
-            //return service.GetAllLists();
-        } */
-
-        [HttpGet("/lists/{listId}/tasks")]
-        public ActionResult<IEnumerable<MyTask>> GetListById(int listId)
-        {
-            // TODO: Your code here            
-
-            if (service.IsContainsId(listId))
-            {
-                return Ok(service.GetAllFromList(listId));
-            }
-            else
-            {
-                return NotFound();
-            }
+            return Ok(service.GetAllLists());
         }
-
-        [HttpGet("/tasks")]
-        public ActionResult<IEnumerable<MyTask>> GetFromListMyTaskById()
+        [HttpGet("{id}")]
+        public ActionResult<MyList> GetMyTasks(int id)
         {
-            int id = Convert.ToInt32(this.Request.Query["listId"]);
-            // TODO: Your code here            
-            if (service.IsContainsId(id))
-            {
-                return Ok(service.GetAllFromList(id));
-            }
-            else
-            {
-                return NotFound();
-            }
-            
-        }
+            // TODO: Your code here
 
+            return Ok(service.GetAllTaskFromList(id));
+        }
         [HttpPost("")]
-        public async Task<ActionResult<MyTask>> PostMyTask(MyTask model)
-        {
-            // TODO: Your code here
-            await Task.Yield();
-
-            return null;
+        public ActionResult<MyList> PostMyList(MyList myList)
+        {                        
+            return Ok(service.AddList(myList));
+        }
+        [HttpPost("{id}")]
+        public ActionResult<MyTask> PostMyTask(int id, MyTask model)
+        {                        
+            return Ok(service.AddTask(id,model));
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMyList(int id, MyTask model)
+        [HttpPatch("{idList}")]
+        public ActionResult<MyList> PatchMyList(int idList, MyList model)
         {
-            // TODO: Your code here
-            await Task.Yield();
-
-            return NoContent();
+            // TODO: Your code her
+            
+            return Ok(service.UpdateList(idList, model));
         }
+        [HttpPatch("{idList}/{idTask}")]
+        public ActionResult<MyTask> PutMyList(int idList, int idTask, MyTask model)
+        {
+            // TODO: Your code her
 
+            return Ok(service.UpdateTask(idList, idTask, model));
+        }
         [HttpDelete("{id}")]
-        public async Task<ActionResult<MyTask>> DeleteMyListById(int id)
+        public ActionResult<MyList> DeleteMyListById(int id)
         {
             // TODO: Your code here            
-            await Task.Yield();
+            
 
-            return NoContent();
+            return service.DeleteList(id);
+        }
+        [HttpDelete("{idList}/{idTask}")]
+        public ActionResult<MyTask> DeleteMyListById(int idList, int idTask)
+        {
+            // TODO: Your code here            
+
+            return service.DeleteTask(idList, idTask);
         }
     }
 }

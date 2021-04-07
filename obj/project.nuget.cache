@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "BsFKAqWFr0q3PJgvY8Fd1oLjuBiybL7OEAbAXSnSgkaaLLBgVzjYCHOGyfhryQQZD/HnzTixx8HPQQprRvqiwA==",
+  "dgSpecHash": "9Hip5cqcV+GWRFIZTDJIu+1nY3fdV90I4yVHQObsfadlqBKLL8GSFP9ZhWozAK53HzoPzuvVzJYBZ7dKnwaESQ==",
   "success": true,
   "projectFilePath": "/home/intern/Documents/MyWedapi/MyWedapi.csproj",
   "expectedPackageFiles": [
+    "/home/intern/.nuget/packages/efcore.namingconventions/5.0.2/efcore.namingconventions.5.0.2.nupkg.sha512",
     "/home/intern/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
+    "/home/intern/.nuget/packages/microsoft.aspnetcore.jsonpatch/5.0.4/microsoft.aspnetcore.jsonpatch.5.0.4.nupkg.sha512",
+    "/home/intern/.nuget/packages/microsoft.aspnetcore.mvc.newtonsoftjson/5.0.4/microsoft.aspnetcore.mvc.newtonsoftjson.5.0.4.nupkg.sha512",
     "/home/intern/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/home/intern/.nuget/packages/microsoft.entityframeworkcore/5.0.5/microsoft.entityframeworkcore.5.0.5.nupkg.sha512",
     "/home/intern/.nuget/packages/microsoft.entityframeworkcore.abstractions/5.0.5/microsoft.entityframeworkcore.abstractions.5.0.5.nupkg.sha512",
@@ -22,6 +25,8 @@
     "/home/intern/.nuget/packages/microsoft.extensions.options/5.0.0/microsoft.extensions.options.5.0.0.nupkg.sha512",
     "/home/intern/.nuget/packages/microsoft.extensions.primitives/5.0.0/microsoft.extensions.primitives.5.0.0.nupkg.sha512",
     "/home/intern/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/home/intern/.nuget/packages/newtonsoft.json/12.0.2/newtonsoft.json.12.0.2.nupkg.sha512",
+    "/home/intern/.nuget/packages/newtonsoft.json.bson/1.0.2/newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "/home/intern/.nuget/packages/npgsql/5.0.2/npgsql.5.0.2.nupkg.sha512",
     "/home/intern/.nuget/packages/npgsql.entityframeworkcore.postgresql/5.0.2/npgsql.entityframeworkcore.postgresql.5.0.2.nupkg.sha512",
     "/home/intern/.nuget/packages/swashbuckle.aspnetcore/5.6.3/swashbuckle.aspnetcore.5.6.3.nupkg.sha512",

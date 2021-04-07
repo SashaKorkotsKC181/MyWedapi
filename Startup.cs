@@ -28,13 +28,15 @@ namespace MyWedapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<TodoListContext>(options =>
-            options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddDbContext<TodoListsContext>(options =>
+                options
+                    .UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
+                    .UseSnakeCaseNamingConvention()
+            );
 
             services.AddControllers();
-            services.AddScoped<ToDoListServices>();
-            /* services.AddSingleton<ToDoListsServices>(); */
+            /* services.AddScoped<ToDoListServices>(); */
+            services.AddScoped<ToDoListsServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

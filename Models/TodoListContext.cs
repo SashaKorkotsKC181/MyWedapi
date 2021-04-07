@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+/* using Microsoft.EntityFrameworkCore;
 using ToDoList.Models;
 
 namespace  ToDoList.Models {
@@ -12,4 +12,4 @@ namespace  ToDoList.Models {
 
         public DbSet<MyTask> MyTasks { get; set; }
     }
-}
+} */
