@@ -1,61 +1,59 @@
 using System.Collections.Generic;
 using ToDoList.Models;
+using System.Linq;
 
 namespace MyWedapi
 {
     public class ToDoListServices
-    {
-        private Dictionary<int, MyTask> tasks = new Dictionary<int, MyTask>()
-        {
-            {1 ,new MyTask() {/* Id = 1 ,*/Title ="make class"}},
-            {2 ,new MyTask() {/* Id = 2, */Title ="make struct"}}
-        };
-        
+    {   
         public int lastIndex = 2;
-        public IEnumerable<MyTask> GetAll()
+
+        TodoListContext db;
+
+
+        public ToDoListServices(TodoListContext context)
         {
-            return tasks.Values;
+            this.db = context;            
+        }
+        public IEnumerable<MyTask> GetAll()
+        {            
+            return db.MyTasks.OrderBy(b => b.Id);
         }
         public MyTask GetMyTask(int id)
         {
-            return tasks[id];
+            return db.MyTasks.Find(id);
         }
         public MyTask AddTask(MyTask model)
         {
             MyTask todoItem = new MyTask
             {
-                /* Id = ++lastIndex, */
                 Title = model.Title,
                 Done = model.Done,
                 Description = model.Description
             };
-            tasks.Add(++lastIndex, todoItem);
-
+            db.MyTasks.Add(todoItem);
+            db.SaveChanges();
             return todoItem;
         }
         public bool IsContainsId(int id)
         {
-            return tasks.ContainsKey(id);
+            return db.MyTasks.Select(b => b.Id).Contains(id);
+            
         }
         public MyTask DeleteById(int id)
         {
-            MyTask deletedTask = tasks[id];
-            tasks.Remove(id);
-            lastIndex--;
-            return deletedTask;
+            MyTask deleteTask = db.MyTasks.Where(b => b.Id == id).Single();
+            db.Remove(deleteTask);
+            db.SaveChanges();
+            return deleteTask;
         }
         public MyTask Ubdate(int id, MyTask newTask)
         {
-            MyTask task = new MyTask()
-            {
-                Title = newTask.Title != null ? newTask.Title:tasks[id].Title,
-                Description = newTask.Description != null ? newTask.Description:tasks[id].Description,
-                DoDate = newTask.DoDate != null ? newTask.DoDate:tasks[id].DoDate,
-                Done = newTask.Done
-            };
-            tasks.Remove(id);
-            tasks.Add(id,task);
-            return task;
+            newTask.Id = id;
+
+            db.Update(newTask);
+            db.SaveChanges();
+            return newTask;
         }
     }
 

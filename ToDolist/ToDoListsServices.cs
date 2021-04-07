@@ -17,7 +17,17 @@ namespace MyWedapi
             {2 ,new MyTask() {Title ="make struct"}}
             }},
         };
+
+
+
         public int lastIndex = 2;
+
+
+        TodoListContext context;
+        public ToDoListsServices(TodoListContext context)
+        {
+            this.context = context;
+        }
         public Dictionary<int, Dictionary<int, MyTask>> GetAllLists()
         {
             return listsOfTasks;

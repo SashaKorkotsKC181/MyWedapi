@@ -19,13 +19,13 @@ namespace ToDoLists.Controllers
             this.service = service;
         }
 
-        [HttpGet("")]
-        public ActionResult<Dictionary<int, Dictionary<int, MyTask>>> GetMyTasks()
+        /* [HttpGet("")]
+        public ActionResult<IEnumerable<MyTask>> GetMyTasks()
         {
             // TODO: Your code here
 
-            return service.GetAllLists();
-        }
+            //return service.GetAllLists();
+        } */
 
         [HttpGet("/lists/{listId}/tasks")]
         public ActionResult<IEnumerable<MyTask>> GetListById(int listId)

@@ -28,32 +28,22 @@ namespace ToDoList.Controllers
         [HttpGet("{id}")]
         public ActionResult<MyTask> GetTaskById(int id)
         {
-            if (service.IsContainsId(id))
-            {
-                return service.GetMyTask(id);
-            }
-            else
-            {
-                return NotFound();
-            }
+            return service.GetMyTask(id);
+
         }
-        [HttpGet("/tasks")]
-        public ActionResult<MyTask> GetTaskByIdOnParam(int id)
-        {
-            if (service.IsContainsId(id))
-            {
-                return service.GetMyTask(id);
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
+
         [HttpPost("")]
         public ActionResult<MyTask> PostTask(MyTask model)
         {
-            MyTask currentTask = service.AddTask(model);
-            return Created($"api/ToDoList/{service.lastIndex}", currentTask);
+            if (service.IsContainsId(model.Id))
+            {
+                MyTask currentTask = service.AddTask(model);
+                return Created($"api/ToDoList/{service.lastIndex}", currentTask);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpPut("{id}")]
@@ -62,7 +52,7 @@ namespace ToDoList.Controllers
             // TODO: Your code here
             if (service.IsContainsId(id))
             {
-                return Ok(service.Ubdate(id,model));
+                return Ok(service.Ubdate(id, model));
             }
             else
             {
