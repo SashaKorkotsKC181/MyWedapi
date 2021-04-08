@@ -43,8 +43,21 @@ namespace ToDoLists.Controllers
 
             return Ok(service.GetAllLists());
         }
+        [HttpGet("{id}")]
+        public ActionResult<MyList> GetMyList(int id)
+        {
+            // TODO: Your code here
 
+            return Ok(service.GetList(id));
+        }
 
+        [HttpGet("{idList}{idTask}")]
+        public ActionResult<MyTask> GetMyTask(int idList, int idTask)
+        {
+            // TODO: Your code here
+
+            return Ok(service.GetTask(idList, idTask));
+        }
 
         [HttpGet("/lists/{id}/tasks")]
         public ActionResult<MyList> GetMyTasks(int id, bool isAll)
@@ -65,7 +78,7 @@ namespace ToDoLists.Controllers
         }
 
         [HttpPut("{idList}")]
-        public ActionResult<MyList> PatchMyList(int idList, MyList model)
+        public ActionResult<MyList> PutMyList(int idList, MyList model)
         {
             // TODO: Your code her
             

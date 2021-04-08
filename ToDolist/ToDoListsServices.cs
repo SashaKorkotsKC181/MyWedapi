@@ -18,7 +18,7 @@ namespace MyWedapi
         internal IEnumerable<MyList> GetAllLists()
         {
             return db.MyLists;
-        }
+        }        
         internal MyTask AddTask(int id, MyTask model)
         {
             MyTask todoItem = new MyTask
@@ -67,6 +67,16 @@ namespace MyWedapi
             return outp;
         }
 
+        internal MyTask GetTask(int idList, int idTask)
+        {
+            return db.MyTasks.Where(b => b.MyListId == idList && b.MyTaskId == idTask).Single();
+        }
+
+        internal MyList GetList(int id)
+        {
+            return db.MyLists.Where(b => b.MyListId == id).Single();
+        }
+
         internal IEnumerable<MyList> GetMyListsWithTasks()
         {
             return db.MyLists.Include(b => b.Tasks);
@@ -98,18 +108,45 @@ namespace MyWedapi
 
     internal MyList UpdateList(int id, MyList model)
     {
-        model.MyListId = id;
-        db.MyLists.Update(model);
+
+        MyList oldList = this.GetList(id);
+        oldList.MyListId = id;
+        if (model.Title != null)
+        {
+            oldList.Title = model.Title;
+        }
+        if (model.Tasks != null)
+        {
+            oldList.Tasks = model.Tasks;
+        }
+        db.MyLists.Update(oldList);
         db.SaveChanges();
-        return model;
+        return oldList;
     }
     internal MyTask UpdateTask(int idl, int idt, MyTask model)
     {
-        model.MyListId = idl;
-        model.MyTaskId = idt;
-        db.MyTasks.Update(model);
+        MyTask oldTask = this.GetTask(idl, idt);
+        oldTask.MyListId = idl;
+        oldTask.MyTaskId = idt;
+        if (model.Title != null)
+        {
+            oldTask.Title = model.Title;
+        }
+        if (model.Description != null)
+        {
+            oldTask.Description = model.Description;
+        }
+        if (model.DoDate != null)
+        {
+            oldTask.DoDate = model.DoDate;
+        }
+        if (model.Done != false)
+        {
+            oldTask.DoDate = model.DoDate;
+        }
+        db.MyTasks.Update(oldTask);
         db.SaveChanges();
-        return model;
+        return oldTask;
     }
 
     internal MyList DeleteList(int id)
