@@ -77,15 +77,15 @@ namespace ToDoLists.Controllers
             return Ok(service.AddTask(id,model));
         }
 
-        [HttpPost("list/{idList}")]
-        public ActionResult<MyList> PostMyList(int idList, MyList model)
+        [HttpPatch("list/{idList}")]
+        public ActionResult<MyList> PatchMyList(int idList, MyList model)
         {
             // TODO: Your code her
             
             return Ok(service.UpdateList(idList, model));
         }
-        [HttpPost("list/{idList}/task/{idTask}")]
-        public ActionResult<MyTask> PostMyTask(int idList, int idTask, MyTask model)
+        [HttpPatch("list/{idList}/task/{idTask}")]
+        public ActionResult<MyTask> PatchMyTask(int idList, int idTask, MyTask model)
         {
             // TODO: Your code her
 
