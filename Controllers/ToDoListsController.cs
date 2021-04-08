@@ -36,14 +36,14 @@ namespace ToDoLists.Controllers
             return Ok(service.GetTodayTasks());
         }
 
-        [HttpGet("")]
+        [HttpGet("lists")]
         public ActionResult<IEnumerable<MyList>> GetMyLists()
         {
             // TODO: Your code here
 
             return Ok(service.GetAllLists());
         }
-        [HttpGet("{id}")]
+        [HttpGet("list/{id}")]
         public ActionResult<MyList> GetMyList(int id)
         {
             // TODO: Your code here
@@ -51,7 +51,7 @@ namespace ToDoLists.Controllers
             return Ok(service.GetList(id));
         }
 
-        [HttpGet("{idList}{idTask}")]
+        [HttpGet("list/{idList}/task/{idTask}")]
         public ActionResult<MyTask> GetMyTask(int idList, int idTask)
         {
             // TODO: Your code here
@@ -59,39 +59,39 @@ namespace ToDoLists.Controllers
             return Ok(service.GetTask(idList, idTask));
         }
 
-        [HttpGet("/lists/{id}/tasks")]
+        [HttpGet("lists/{id}/tasks")]
         public ActionResult<MyList> GetMyTasks(int id, bool isAll)
         {
             // TODO: Your code here
 
             return Ok(service.GetAllTaskFromList(id,isAll));
         }
-        [HttpPost("")]
+        [HttpPost("list")]
         public ActionResult<MyList> PostMyList(MyList myList)
         {                        
             return Ok(service.AddList(myList));
         }
-        [HttpPost("{id}")]
+        [HttpPost("list/{id}/task")]
         public ActionResult<MyTask> PostMyTask(int id, MyTask model)
         {                        
             return Ok(service.AddTask(id,model));
         }
 
-        [HttpPut("{idList}")]
-        public ActionResult<MyList> PutMyList(int idList, MyList model)
+        [HttpPost("list/{idList}")]
+        public ActionResult<MyList> PostMyList(int idList, MyList model)
         {
             // TODO: Your code her
             
             return Ok(service.UpdateList(idList, model));
         }
-        [HttpPut("{idList}/{idTask}")]
-        public ActionResult<MyTask> PutMyList(int idList, int idTask, MyTask model)
+        [HttpPost("list/{idList}/task/{idTask}")]
+        public ActionResult<MyTask> PostMyTask(int idList, int idTask, MyTask model)
         {
             // TODO: Your code her
 
             return Ok(service.UpdateTask(idList, idTask, model));
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("list/{id}")]
         public ActionResult<MyList> DeleteMyListById(int id)
         {
             // TODO: Your code here            
@@ -99,7 +99,7 @@ namespace ToDoLists.Controllers
 
             return service.DeleteList(id);
         }
-        [HttpDelete("{idList}/{idTask}")]
+        [HttpDelete("list/{idList}/task/{idTask}")]
         public ActionResult<MyTask> DeleteMyListById(int idList, int idTask)
         {
             // TODO: Your code here            
