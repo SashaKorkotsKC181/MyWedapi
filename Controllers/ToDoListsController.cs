@@ -64,14 +64,14 @@ namespace ToDoLists.Controllers
             return Ok(service.AddTask(id,model));
         }
 
-        [HttpPatch("{idList}")]
+        [HttpPut("{idList}")]
         public ActionResult<MyList> PatchMyList(int idList, MyList model)
         {
             // TODO: Your code her
             
             return Ok(service.UpdateList(idList, model));
         }
-        [HttpPatch("{idList}/{idTask}")]
+        [HttpPut("{idList}/{idTask}")]
         public ActionResult<MyTask> PutMyList(int idList, int idTask, MyTask model)
         {
             // TODO: Your code her
