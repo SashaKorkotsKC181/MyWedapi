@@ -18,6 +18,23 @@ namespace ToDoLists.Controllers
         {
             this.service = service;
         }
+        
+        [HttpGet("collection/today")]
+        public ActionResult<IEnumerable<MyList>> GetMyListsWithTasks()
+        {
+            // TODO: Your code here
+
+            return Ok(service.GetMyListsWithTasks());
+        }
+
+
+        [HttpGet("dashboard")]
+        public ActionResult<DashboardDto> GetToday()
+        {
+            // TODO: Your code here
+
+            return Ok(service.GetTodayTasks());
+        }
 
         [HttpGet("")]
         public ActionResult<IEnumerable<MyList>> GetMyLists()
@@ -26,12 +43,15 @@ namespace ToDoLists.Controllers
 
             return Ok(service.GetAllLists());
         }
-        [HttpGet("{id}")]
-        public ActionResult<MyList> GetMyTasks(int id)
+
+
+
+        [HttpGet("/lists/{id}/tasks")]
+        public ActionResult<MyList> GetMyTasks(int id, bool isAll)
         {
             // TODO: Your code here
 
-            return Ok(service.GetAllTaskFromList(id));
+            return Ok(service.GetAllTaskFromList(id,isAll));
         }
         [HttpPost("")]
         public ActionResult<MyList> PostMyList(MyList myList)
@@ -73,5 +93,7 @@ namespace ToDoLists.Controllers
 
             return service.DeleteTask(idList, idTask);
         }
+
+
     }
 }

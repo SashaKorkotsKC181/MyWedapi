@@ -33,7 +33,9 @@ namespace MyWedapi
                     .UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
                     .UseSnakeCaseNamingConvention()
             );
-
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             services.AddControllers();
             /* services.AddScoped<ToDoListServices>(); */
             services.AddScoped<ToDoListsServices>();
