@@ -20,7 +20,7 @@ namespace ToDoLists.Controllers
         }
         
         [HttpGet("collection/today")]
-        public ActionResult<IEnumerable<MyList>> GetMyListsWithTasks()
+        public ActionResult<IEnumerable<MyTask>> GetMyListsWithTasks()
         {
             // TODO: Your code here
 

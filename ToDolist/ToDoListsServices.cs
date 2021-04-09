@@ -59,7 +59,7 @@ namespace MyWedapi
 
             DashboardDto outp = new DashboardDto()
             {
-                CountOfToadyTasks = db.MyTasks.Where(b => b.DoDate == DateTime.Today).Count(),
+                CountOfToadyTasks = db.MyTasks.Where(b => b.DoDate.Value.Date == DateTime.Today.Date).Count(),
                 MyListsNoDone = list
             };
 
@@ -77,9 +77,9 @@ namespace MyWedapi
             return db.MyLists.Where(b => b.MyListId == id).Single();
         }
 
-        internal IEnumerable<MyList> GetMyListsWithTasks()
+        internal IEnumerable<MyTask> GetMyListsWithTasks()
         {
-            return db.MyLists.Include(b => b.Tasks);
+            return db.MyTasks.Where(b => b.DoDate.Value.Date == DateTime.Today.Date).Include(b => b.MyList);
         }
 
         internal MyList AddList(MyList model)
