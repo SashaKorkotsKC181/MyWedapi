@@ -47,24 +47,42 @@ namespace ToDoLists.Controllers
         public ActionResult<MyList> GetMyList(int id)
         {
             // TODO: Your code here
-
-            return Ok(service.GetList(id));
+            if (service.IsContainsListId(id))
+            {
+                return Ok(service.GetList(id));
+            }
+            else 
+            {
+                return BadRequest();
+            }
         }
 
         [HttpGet("list/{idList}/task/{idTask}")]
         public ActionResult<MyTask> GetMyTask(int idList, int idTask)
         {
             // TODO: Your code here
-
-            return Ok(service.GetTask(idList, idTask));
+            if (service.IsContainsTaskId(idTask))
+            {
+                return Ok(service.GetTask(idList, idTask));
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
         [HttpGet("lists/{id}/tasks")]
         public ActionResult<MyList> GetMyTasks(int id, bool isAll)
         {
             // TODO: Your code here
-
-            return Ok(service.GetAllTaskFromList(id,isAll));
+            if (service.IsContainsListId(id))
+            {
+                return Ok(service.GetAllTaskFromList(id,isAll));
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
         [HttpPost("list")]
         public ActionResult<MyList> PostMyList(MyList myList)
@@ -73,38 +91,69 @@ namespace ToDoLists.Controllers
         }
         [HttpPost("list/{id}/task")]
         public ActionResult<MyTask> PostMyTask(int id, MyTask model)
-        {                        
-            return Ok(service.AddTask(id,model));
+        {           
+            if (service.IsContainsListId(id))
+            {             
+                return Ok(service.AddTask(id,model));
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPatch("list/{idList}")]
         public ActionResult<MyList> PatchMyList(int idList, MyList model)
         {
             // TODO: Your code her
-            
-            return Ok(service.UpdateList(idList, model));
+            if (service.IsContainsListId(idList))
+            {  
+                return Ok(service.UpdateList(idList, model));
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
         [HttpPatch("list/{idList}/task/{idTask}")]
         public ActionResult<MyTask> PatchMyTask(int idList, int idTask, MyTask model)
         {
             // TODO: Your code her
-
-            return Ok(service.UpdateTask(idList, idTask, model));
+            if (service.IsContainsListId(idList) && service.IsContainsTaskId(idTask))
+            {
+                return Ok(service.UpdateTask(idList, idTask, model));
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
         [HttpDelete("list/{id}")]
         public ActionResult<MyList> DeleteMyListById(int id)
         {
             // TODO: Your code here            
             
-
-            return service.DeleteList(id);
+            if (service.IsContainsListId(id))
+            {
+                return service.DeleteList(id);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
         [HttpDelete("list/{idList}/task/{idTask}")]
         public ActionResult<MyTask> DeleteMyListById(int idList, int idTask)
         {
             // TODO: Your code here            
-
-            return service.DeleteTask(idList, idTask);
+            if (service.IsContainsListId(idList) && service.IsContainsTaskId(idTask))
+            {
+                return service.DeleteTask(idList, idTask);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
 

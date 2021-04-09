@@ -11,6 +11,8 @@ namespace MyWedapi
     {
 
         TodoListsContext db;
+
+
         public ToDoListsServices(TodoListsContext context)
         {
             this.db = context;
@@ -18,7 +20,7 @@ namespace MyWedapi
         internal IEnumerable<MyList> GetAllLists()
         {
             return db.MyLists;
-        }        
+        }
         internal MyTask AddTask(int id, MyTask model)
         {
             MyTask todoItem = new MyTask
@@ -35,7 +37,7 @@ namespace MyWedapi
         }
 
         internal DashboardDto GetTodayTasks()
-        {            
+        {
             List<MyListWithCountDto> list = new List<MyListWithCountDto>();
             using (var command = db.Database.GetDbConnection().CreateCommand())
             {
@@ -49,13 +51,13 @@ namespace MyWedapi
                         {
                             Id = result.GetInt32(0),
                             Title = result.IsDBNull(1) ? null : result.GetString(1),
-                            
+
                             CountOfNoDoneTasks = result.GetInt32(2)
                         });
                     }
 
                 }
-            }        
+            }
 
             DashboardDto outp = new DashboardDto()
             {
@@ -63,7 +65,7 @@ namespace MyWedapi
                 MyListsNoDone = list
             };
 
-            
+
             return outp;
         }
 
@@ -83,86 +85,94 @@ namespace MyWedapi
         }
 
         internal MyList AddList(MyList model)
-    {
-        MyList todoList = new MyList
         {
-            Title = model.Title,
-            Tasks = model.Tasks
-        };
-        db.MyLists.Add(todoList);
-        db.SaveChanges();
-        return todoList;
-    }
+            MyList todoList = new MyList
+            {
+                Title = model.Title,
+                Tasks = model.Tasks
+            };
+            db.MyLists.Add(todoList);
+            db.SaveChanges();
+            return todoList;
+        }
 
-    internal IEnumerable<MyTask> GetAllTaskFromList(int id, bool isAll)
-    {
-        if (isAll)
+        internal IEnumerable<MyTask> GetAllTaskFromList(int id, bool isAll)
         {
-            return db.MyTasks.Where(b => b.MyListId == id && b.Done == false);
+            if (isAll)
+            {
+                return db.MyTasks.Where(b => b.MyListId == id && b.Done == false);
+            }
+            else
+            {
+                return db.MyTasks.Where(b => b.MyListId == id);
+            }
         }
-        else
-        {
-            return db.MyTasks.Where(b => b.MyListId == id);
-        }
-    }
 
-    internal MyList UpdateList(int id, MyList model)
-    {
+        internal MyList UpdateList(int id, MyList model)
+        {
 
-        MyList oldList = this.GetList(id);
-        oldList.MyListId = id;
-        if (model.Title != null)
-        {
-            oldList.Title = model.Title;
+            MyList oldList = this.GetList(id);
+            oldList.MyListId = id;
+            if (model.Title != null)
+            {
+                oldList.Title = model.Title;
+            }
+            if (model.Tasks != null)
+            {
+                oldList.Tasks = model.Tasks;
+            }
+            db.MyLists.Update(oldList);
+            db.SaveChanges();
+            return oldList;
         }
-        if (model.Tasks != null)
+        internal MyTask UpdateTask(int idl, int idt, MyTask model)
         {
-            oldList.Tasks = model.Tasks;
+            MyTask oldTask = this.GetTask(idl, idt);
+            oldTask.MyListId = idl;
+            oldTask.MyTaskId = idt;
+            if (model.Title != null)
+            {
+                oldTask.Title = model.Title;
+            }
+            if (model.Description != null)
+            {
+                oldTask.Description = model.Description;
+            }
+            if (model.DoDate != null)
+            {
+                oldTask.DoDate = model.DoDate;
+            }
+            if (model.Done != false)
+            {
+                oldTask.DoDate = model.DoDate;
+            }
+            db.MyTasks.Update(oldTask);
+            db.SaveChanges();
+            return oldTask;
         }
-        db.MyLists.Update(oldList);
-        db.SaveChanges();
-        return oldList;
-    }
-    internal MyTask UpdateTask(int idl, int idt, MyTask model)
-    {
-        MyTask oldTask = this.GetTask(idl, idt);
-        oldTask.MyListId = idl;
-        oldTask.MyTaskId = idt;
-        if (model.Title != null)
-        {
-            oldTask.Title = model.Title;
-        }
-        if (model.Description != null)
-        {
-            oldTask.Description = model.Description;
-        }
-        if (model.DoDate != null)
-        {
-            oldTask.DoDate = model.DoDate;
-        }
-        if (model.Done != false)
-        {
-            oldTask.DoDate = model.DoDate;
-        }
-        db.MyTasks.Update(oldTask);
-        db.SaveChanges();
-        return oldTask;
-    }
 
-    internal MyList DeleteList(int id)
-    {
-        MyList deletedList = db.MyLists.Where(b => b.MyListId == id).Single();
-        db.Remove(deletedList);
-        db.SaveChanges();
-        return deletedList;
+        internal MyList DeleteList(int id)
+        {
+            MyList deletedList = db.MyLists.Where(b => b.MyListId == id).Single();
+            db.Remove(deletedList);
+            db.SaveChanges();
+            return deletedList;
+        }
+        internal MyTask DeleteTask(int idl, int idt)
+        {
+            MyTask deletedList = db.MyTasks.Where(b => b.MyListId == idl && b.MyTaskId == idt).Single();
+            db.Remove(deletedList);
+            db.SaveChanges();
+            return deletedList;
+        }
+        internal bool IsContainsListId(int id)
+        {
+            return db.MyLists.Where(b => b.MyListId == id).Count() != 0;
+        }
+        internal bool IsContainsTaskId(int idt)
+        {
+            return db.MyTasks.Where(b => b.MyTaskId == idt).Count() != 0;
+        }
     }
-    internal MyTask DeleteTask(int idl, int idt)
-    {
-        MyTask deletedList = db.MyTasks.Where(b => b.MyListId == idl && b.MyTaskId == idt).Single();
-        db.Remove(deletedList);
-        db.SaveChanges();
-        return deletedList;
-    }
-}
 
 }
