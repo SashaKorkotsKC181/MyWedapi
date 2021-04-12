@@ -26,6 +26,7 @@ namespace MyWedapi
             MyTask todoItem = new MyTask
             {
                 Title = model.Title,
+                DoDate = model.DoDate,
                 Done = model.Done,
                 Description = model.Description,
                 MyListId = id,

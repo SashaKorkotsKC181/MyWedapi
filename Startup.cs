@@ -37,8 +37,9 @@ namespace MyWedapi
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
             services.AddControllers();
-            /* services.AddScoped<ToDoListServices>(); */
+            services.AddSwaggerGen();
             services.AddScoped<ToDoListsServices>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +53,17 @@ namespace MyWedapi
             {
                 app.UseHttpsRedirection();
             }
+
+            app.UseSwagger(c =>
+            {
+                c.SerializeAsV2 = true;
+            });
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
 
             app.UseRouting();
 
