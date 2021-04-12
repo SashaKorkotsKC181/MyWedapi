@@ -28,7 +28,8 @@ namespace MyWedapi
                 Title = model.Title,
                 Done = model.Done,
                 Description = model.Description,
-                MyListId = id
+                MyListId = id,
+                MyList = this.GetList(id)
             };
 
             db.MyTasks.Add(todoItem);
@@ -77,11 +78,6 @@ namespace MyWedapi
         internal MyList GetList(int id)
         {
             return db.MyLists.Where(b => b.MyListId == id).Single();
-        }
-
-        internal IEnumerable<MyTask> GetMyListsWithTasks()
-        {
-            return db.MyTasks.Where(b => b.DoDate.Value.Date == DateTime.Today.Date).Include(b => b.MyList);
         }
 
         internal MyList AddList(MyList model)
@@ -144,7 +140,11 @@ namespace MyWedapi
             }
             if (model.Done != false)
             {
-                oldTask.DoDate = model.DoDate;
+                oldTask.Done = model.Done;
+            }
+            if (model.MyList != null)
+            {
+                oldTask.MyList = model.MyList;
             }
             db.MyTasks.Update(oldTask);
             db.SaveChanges();
@@ -172,6 +172,23 @@ namespace MyWedapi
         internal bool IsContainsTaskId(int idt)
         {
             return db.MyTasks.Where(b => b.MyTaskId == idt).Count() != 0;
+        }
+
+        internal List<TodayTaskDTO> GetMyListsWithTasks()
+        {
+            return db.MyTasks
+                .Where(b => b.DoDate.Value.Date == DateTime.Today.Date)
+                .Include(t => t.MyList)
+                .Select(ToTodayTaskDTO)
+                .ToList();
+        }
+        private TodayTaskDTO ToTodayTaskDTO(MyTask task)
+        {   
+            TodayTaskDTO taskDTO = new TodayTaskDTO();
+            taskDTO.listName = task.MyList.Title;
+            task.MyList = null;
+            taskDTO.task = task;
+            return taskDTO;
         }
     }
 
