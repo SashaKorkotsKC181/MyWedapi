@@ -22,7 +22,7 @@ namespace ToDoLists.Controllers
         [HttpGet("collection/today")]
         public ActionResult<IEnumerable<MyTask>> GetMyListsWithTasks()
         {
-            // TODO: Your code here
+            
 
             return Ok(service.GetMyListsWithTasks());
         }
@@ -31,7 +31,7 @@ namespace ToDoLists.Controllers
         [HttpGet("dashboard")]
         public ActionResult<DashboardDto> GetToday()
         {
-            // TODO: Your code here
+            
 
             return Ok(service.GetTodayTasks());
         }
@@ -39,14 +39,14 @@ namespace ToDoLists.Controllers
         [HttpGet("lists")]
         public ActionResult<IEnumerable<MyList>> GetMyLists()
         {
-            // TODO: Your code here
+            
 
             return Ok(service.GetAllLists());
         }
         [HttpGet("list/{id}")]
         public ActionResult<MyList> GetMyList(int id)
         {
-            // TODO: Your code here
+            
             if (service.IsContainsListId(id))
             {
                 return Ok(service.GetList(id));
@@ -60,7 +60,6 @@ namespace ToDoLists.Controllers
         [HttpGet("list/{idList}/task/{idTask}")]
         public ActionResult<MyTask> GetMyTask(int idList, int idTask)
         {
-            // TODO: Your code here
             if (service.IsContainsTaskId(idTask))
             {
                 return Ok(service.GetTask(idList, idTask));
@@ -74,7 +73,6 @@ namespace ToDoLists.Controllers
         [HttpGet("lists/{id}/tasks")]
         public ActionResult<MyList> GetMyTasks(int id, bool isAll)
         {
-            // TODO: Your code here
             if (service.IsContainsListId(id))
             {
                 return Ok(service.GetAllTaskFromList(id,isAll));
@@ -131,7 +129,7 @@ namespace ToDoLists.Controllers
         [HttpDelete("list/{id}")]
         public ActionResult<MyList> DeleteMyListById(int id)
         {
-            // TODO: Your code here            
+                        
             
             if (service.IsContainsListId(id))
             {
@@ -145,7 +143,7 @@ namespace ToDoLists.Controllers
         [HttpDelete("list/{idList}/task/{idTask}")]
         public ActionResult<MyTask> DeleteMyListById(int idList, int idTask)
         {
-            // TODO: Your code here            
+                        
             if (service.IsContainsListId(idList) && service.IsContainsTaskId(idTask))
             {
                 return service.DeleteTask(idList, idTask);

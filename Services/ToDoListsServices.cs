@@ -23,7 +23,7 @@ namespace MyWedapi
         }
         internal MyTask AddTask(int id, MyTask model)
         {
-            MyTask todoItem = new MyTask
+            MyTask newTask = new MyTask
             {
                 Title = model.Title,
                 DoDate = model.DoDate,
@@ -33,9 +33,9 @@ namespace MyWedapi
                 MyList = this.GetList(id)
             };
 
-            db.MyTasks.Add(todoItem);
+            db.MyTasks.Add(newTask);
             db.SaveChanges();
-            return todoItem;
+            return newTask;
         }
 
         internal DashboardDto GetTodayTasks()
@@ -83,14 +83,14 @@ namespace MyWedapi
 
         internal MyList AddList(MyList model)
         {
-            MyList todoList = new MyList
+            MyList newList = new MyList
             {
                 Title = model.Title,
                 Tasks = model.Tasks
             };
-            db.MyLists.Add(todoList);
+            db.MyLists.Add(newList);
             db.SaveChanges();
-            return todoList;
+            return newList;
         }
 
         internal IEnumerable<MyTask> GetAllTaskFromList(int id, bool isAll)
@@ -186,8 +186,9 @@ namespace MyWedapi
         private TodayTaskDTO ToTodayTaskDTO(MyTask task)
         {   
             TodayTaskDTO taskDTO = new TodayTaskDTO();
-            taskDTO.listName = task.MyList.Title;
-            taskDTO.task = task;
+            taskDTO.TitleOfList = task.MyList.Title;
+            taskDTO.MyListId = task.MyList.MyListId;
+            taskDTO.Description = task
             return taskDTO;
         }
     }

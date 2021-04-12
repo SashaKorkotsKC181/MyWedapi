@@ -12,6 +12,6 @@ namespace ToDoList.Models
         [StringLength(100)]        
         public string Title { get; set; }
         public List<MyTask> Tasks { get; set; }
-
+    
     }
 }
