@@ -187,7 +187,6 @@ namespace MyWedapi
         {   
             TodayTaskDTO taskDTO = new TodayTaskDTO();
             taskDTO.listName = task.MyList.Title;
-            task.MyList = null;
             taskDTO.task = task;
             return taskDTO;
         }
