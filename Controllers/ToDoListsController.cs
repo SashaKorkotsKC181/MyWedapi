@@ -53,7 +53,7 @@ namespace ToDoLists.Controllers
             }
             else 
             {
-                return BadRequest();
+                return NotFound();
             }
         }
 
@@ -67,7 +67,7 @@ namespace ToDoLists.Controllers
             }
             else
             {
-                return BadRequest();
+                return NotFound();
             }
         }
 
@@ -81,7 +81,7 @@ namespace ToDoLists.Controllers
             }
             else
             {
-                return BadRequest();
+                return NotFound();
             }
         }
         [HttpPost("list")]
@@ -98,7 +98,7 @@ namespace ToDoLists.Controllers
             }
             else
             {
-                return BadRequest();
+                return NotFound();
             }
         }
 
@@ -112,7 +112,7 @@ namespace ToDoLists.Controllers
             }
             else
             {
-                return BadRequest();
+                return NotFound();
             }
         }
         [HttpPatch("list/{idList}/task/{idTask}")]
@@ -125,7 +125,7 @@ namespace ToDoLists.Controllers
             }
             else
             {
-                return BadRequest();
+                return NotFound();
             }
         }
         [HttpDelete("list/{id}")]
@@ -139,7 +139,7 @@ namespace ToDoLists.Controllers
             }
             else
             {
-                return BadRequest();
+                return NotFound();
             }
         }
         [HttpDelete("list/{idList}/task/{idTask}")]
@@ -152,7 +152,7 @@ namespace ToDoLists.Controllers
             }
             else
             {
-                return BadRequest();
+                return NotFound();
             }
         }
 
