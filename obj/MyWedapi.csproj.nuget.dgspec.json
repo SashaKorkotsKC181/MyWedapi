@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Internships\\MyWedapi\\MyWedapi.csproj": {}
+    "/home/intern/Documents/MyWedapi/MyWedapi.csproj": {}
   },
   "projects": {
-    "D:\\Internships\\MyWedapi\\MyWedapi.csproj": {
+    "/home/intern/Documents/MyWedapi/MyWedapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Internships\\MyWedapi\\MyWedapi.csproj",
+        "projectUniqueName": "/home/intern/Documents/MyWedapi/MyWedapi.csproj",
         "projectName": "MyWedapi",
-        "projectPath": "D:\\Internships\\MyWedapi\\MyWedapi.csproj",
-        "packagesPath": "C:\\Users\\Саша Коркоць\\.nuget\\packages\\",
-        "outputPath": "D:\\Internships\\MyWedapi\\obj\\",
+        "projectPath": "/home/intern/Documents/MyWedapi/MyWedapi.csproj",
+        "packagesPath": "/home/intern/.nuget/packages/",
+        "outputPath": "/home/intern/Documents/MyWedapi/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Саша Коркоць\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/intern/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -79,7 +79,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.201/RuntimeIdentifierGraph.json"
         }
       }
     }

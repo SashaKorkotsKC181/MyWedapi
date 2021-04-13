@@ -8,7 +8,6 @@ namespace ToDoList.Models
     {
         public int MyListId { get; set; }
         public string TitleOfList { get; set; }
-        public List<MyTask> Tasks { get; set; }
         public int MyTaskId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
