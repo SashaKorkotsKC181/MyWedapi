@@ -13,5 +13,6 @@ namespace ToDoList.Models
         public string Description { get; set; }
         public DateTime? DoDate { get; set; }
         public bool Done { get; set; }
+        
     }
 }

@@ -114,7 +114,7 @@ namespace ToDoLists.Controllers
             }
         }
         [HttpPatch("list/{idList}/task/{idTask}")]
-        public ActionResult<MyTask> PatchMyTask(int idList, int idTask, MyTask model)
+        public ActionResult<MyTask> PatchMyTask(int idList, int idTask, UpdateTaskDto model)
         {
             // TODO: Your code her
             if (service.IsContainsListId(idList) && service.IsContainsTaskId(idTask))

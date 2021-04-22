@@ -122,11 +122,11 @@ namespace MyWedapi
             db.SaveChanges();
             return oldList;
         }
-        internal MyTask UpdateTask(int idl, int idt, MyTask model)
+        internal MyTask UpdateTask(int idl, int idt, UpdateTaskDto model)
         {
             MyTask oldTask = this.GetTask(idl, idt);
-            oldTask.MyListId = idl;
-            oldTask.MyTaskId = idt;
+            model.MyListId = idl;
+            model.MyTaskId = idt;
             if (model.Title != null)
             {
                 oldTask.Title = model.Title;
@@ -139,10 +139,7 @@ namespace MyWedapi
             {
                 oldTask.DoDate = model.DoDate;
             }
-            if (model.Done != false)
-            {
-                oldTask.Done = model.Done;
-            }
+            oldTask.Done = model.Done;
             if (model.MyList != null)
             {
                 oldTask.MyList = model.MyList;

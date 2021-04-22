@@ -18,6 +18,7 @@ namespace MyWedapi
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -39,11 +40,24 @@ namespace MyWedapi
             services.AddSwaggerGen();
             services.AddScoped<ToDoListsServices>();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                builder =>
+                {
+                    //адрес вашего лайв сервера
+                    builder.WithOrigins("http://127.0.0.1:5500");
+                    builder.AllowAnyHeader();
+                    builder.AllowAnyMethod();
+                });
+            });
         }
 
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(MyAllowSpecificOrigins);
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
