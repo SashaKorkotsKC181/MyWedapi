@@ -146,7 +146,7 @@ namespace ToDoLists.Controllers
                         
             if (service.IsContainsListId(idList) && service.IsContainsTaskId(idTask))
             {
-                return service.DeleteTask(idList, idTask);
+                return Ok(service.DeleteTask(idList, idTask));
             }
             else
             {
